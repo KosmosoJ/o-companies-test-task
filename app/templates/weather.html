@@ -1,1 +1,29 @@
 {% extends 'base.html' %}
+
+
+{% block body %}
+  <style>
+    input[type="text"] {
+      width: 200px;
+      padding: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+    
+  <form>
+    <input type="text" list="fruits" name="fruit">
+    <datalist id="fruits">
+        {% for city in cities %}
+          <option value="{{ city }}">
+            {% endfor %}
+        
+      <option value="Apple">
+      <option value="Banana">
+      <option value="Cherry">
+      <option value="Grapes">
+      <option value="Lemon">
+    </datalist>
+  </form>
+{% endblock %}
