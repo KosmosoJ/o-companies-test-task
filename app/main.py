@@ -6,6 +6,7 @@ app = FastAPI()
 
 app.include_router(weather_router)
 
-@app.get('/')
+
+@app.get("/")
 async def index():
-    return {'message':'app started'}
+    return {"message": "app started"}
