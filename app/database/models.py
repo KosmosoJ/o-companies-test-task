@@ -1,5 +1,6 @@
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, TIMESTAMP
 from .db import Base
+from datetime import datetime
 
 
 class City(Base):
@@ -16,3 +17,4 @@ class UserSearch(Base):
     id = Column(Integer, primary_key=True, autoincrement=True, index=True)
     user_host = Column(String)
     user_request = Column(String)
+    searched_at = Column(TIMESTAMP(timezone=True), default=datetime.now())
