@@ -2,28 +2,39 @@
 
 
 {% block body %}
-  <style>
-    input[type="text"] {
-      width: 200px;
-      padding: 5px;
-      font-size: 16px;
-    }
-  </style>
-</head>
-<body>
-    
-  <form>
-    <input type="text" list="fruits" name="fruit">
-    <datalist id="fruits">
-        {% for city in cities %}
-          <option value="{{ city }}">
-            {% endfor %}
-        
-      <option value="Apple">
-      <option value="Banana">
-      <option value="Cherry">
-      <option value="Grapes">
-      <option value="Lemon">
-    </datalist>
-  </form>
+    <div class="container">
+        <div class="form-container">
+            Укажите город
+            <form method="post">
+                <input type="text" list="city-list" autocomplete="on" name="city_name">
+                <datalist id="city-list">
+                    {% for city in cities %}
+                    <option value="{{ city }}">
+                        {% endfor %}
+                </datalist>
+                <button type="submit">Поиск</button>
+            </form>
+        </div>  
+        <div class="prediction-container">
+            <div class="prediction-title">Прогноз погоды для города Екатеринбург</div>
+            <div class="items-container">
+                <div class="item">
+                    <div class="item-title">Вчера</div>
+                    <div class="item-title">17.07</div>
+                    <div class="time-container">
+                        <div class="time">Утро - 14</div>
+                        <div class="time">День - 16</div>
+                        <div class="time">Вечер - 14</div>
+                        <div class="time">Ночь - 10</div>
+                    </div>
+                </div>
+                <div class="item">так-то так </div>
+                <div class="item">так-то так </div>
+                <div class="item">так-то так </div>
+                <div class="item">так-то так </div>
+                <div class="item">так-то так </div>
+                <div class="item">так-то так </div>
+            </div>
+        </div>    
+    </div>
 {% endblock %}

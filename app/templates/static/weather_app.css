@@ -1,0 +1,33 @@
+body{
+    font-weight: bold;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 50vh;
+}
+
+.prediction-container{
+    margin-top: 20px;
+}
+
+.prediction-title{
+    text-align: center;
+}
+
+.items-container{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+.item{
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
