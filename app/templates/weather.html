@@ -5,29 +5,51 @@
     <div class="container">
         <div class="form-container">
             Укажите город
-            <form method="post">
-                <input type="text" list="city-list" autocomplete="on" name="city_name">
+                
+                <input type="text" id="user_form" list="city-list" value="Екатеринбург" autocomplete="on" name="city_name">
                 <datalist id="city-list">
                     {% for city in cities %}
                     <option value="{{ city }}">
                         {% endfor %}
                 </datalist>
-                <button type="submit">Поиск</button>
-            </form>
+                <button id="submit" >Поиск</button>
         </div>  
-        <div class="prediction-container">
-            <div class="prediction-title">Прогноз погоды для города Екатеринбург</div>
+        <div class="searched-before">
+            <div class="searched-before-title">Искали ранее: </div>
+            <div class="search-info">
+            <span class='searched-before-item'></span>
+            <span class='searched-before-item'></span>
+            
+            </div>
+        </div>
+        <div class="prediction-container deactive">
+            <div class="prediction-title">Прогноз погоды для города <span class="city-title"></span></div>
             <div class="items-container">
                 <div class="item">
                     <div class="item-title">Вчера</div>
-                    <div class="item-title">17.07</div>
+                    <div class="item-title-date">17.07</div>
                     <div class="time-container">
-                        <div class="time">Утро - 14</div>
-                        <div class="time">День - 16</div>
-                        <div class="time">Вечер - 14</div>
-                        <div class="time">Ночь - 10</div>
-                    </div>
-                </div>
+                        <div class="time">
+                            <span class="morning">Утро - 17</span>
+                            <span>Вероятность осадков - 43%</span>
+                            <span>Ветер - 4км/ч</span>
+                        </div>
+                        <div class="time">
+                            <span class="day">День - 20</span>
+                            <span>Вероятность осадков - 43%</span>
+                            <span>Ветер - 4км/ч</span>
+                        </div>
+                        <div class="time">
+                            <span class="evening">Вечер - 18</span>
+                            <span>Вероятность осадков - 43%</span>
+                            <span>Ветер - 4км/ч</span>
+                        </div>
+                        <div class="time">
+                            <span class="night">Ночь - 16</span>
+                            <span>Вероятность осадков - 43%</span>
+                            <span>Ветер - 4км/ч</span>
+                        </div>
+                    </div></div>
                 <div class="item">так-то так </div>
                 <div class="item">так-то так </div>
                 <div class="item">так-то так </div>

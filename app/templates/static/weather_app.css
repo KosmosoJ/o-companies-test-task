@@ -20,9 +20,10 @@ body{
 
 .items-container{
     display: flex;
-    flex-direction: row;
     gap: 30px;
+    margin: 0 auto;
     margin-top: 10px;
+
 }
 
 .item{
@@ -30,4 +31,29 @@ body{
     padding: 10px;
     border-radius: 10px;
     text-align: center;
+    max-width: 300px;
+}
+
+.searched-before{
+    display: flex;
+    flex-direction: row;
+}
+
+.searched-before-title{
+    margin-right: 10px;
+}
+
+.time{
+    display: flex;
+    flex-direction: column;
+    border: 1px dotted black;
+}
+.time-container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.deactive{
+    display: none;
 }
