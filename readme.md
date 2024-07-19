@@ -12,9 +12,9 @@
 
 
 
-Для запуска проекта вне докера необходимо создать .env файл по аналогии с [.env.template](.env.template)
+Для запуска проекта вне докера необходимо создать .env файл по аналогии с [.env.template](app/.env.template)
 
-Установить зависимости из файла [requirements.txt](requirements.txt)
+Установить зависимости из файла [requirements.txt](app/requirements.txt)
 
 Применить миграции __alembic upgrade head__
 
