@@ -4,7 +4,7 @@ from database.models import City
 from fastapi import HTTPException, status
 
 
-async def get_cities_info(session: AsyncSession):
+async def get_cities_info_db(session: AsyncSession):
     cities = await session.execute(select(City))
     cities = cities.scalars().all()
     if not cities:

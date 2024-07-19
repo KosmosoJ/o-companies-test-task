@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+    <div class="admin-container container">
+        <div class="">
+            Пользователи
+            {% for user in users %}
+            <div class="info-item">{{ user.user_host }} - {{ user.user_request }} - {{ user.searched_at }} </div>
+                
+            {% endfor %}
+        </div>
+        <div class="">
+            Города
+            {% for city in cities %}
+            <div class="info-item">{{ city.city_name }} - {{ city.searched }} </div>
+                
+            {% endfor %}
+        </div>
+    </div>
+
+    <a href="{{ url_for('admin_cities_info') }}">Cities API</a>
+    <a href="{{ url_for('admin_users_info') }}">Users API</a>
+{% endblock %}

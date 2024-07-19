@@ -22,6 +22,6 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-async def index():
-    return {"message": "app started"}
+# @app.get("/")
+# async def index():
+#     return {"message": "app started"}

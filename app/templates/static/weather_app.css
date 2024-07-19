@@ -71,3 +71,10 @@ body{
 .searched-before-item:hover{
     color: rgb(97, 154, 228);
 }
+
+
+.admin-container{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}

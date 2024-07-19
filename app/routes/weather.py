@@ -6,8 +6,8 @@ from cachetools import TTLCache
 from utils.weather import get_prediction
 from database.db import get_session
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.city import user_get_city_info
-from utils.search import post_user_search, get_unique_user_search
+from utils.city import user_get_city_info, get_cities_info_db
+from utils.search import post_user_search, get_unique_user_search, get_user_searches
 from schemas.search import UserSearch
 
 
@@ -26,7 +26,7 @@ async def get_cities_info():
     return cities_data
 
 
-@router.get("/weather/")
+@router.get("/")
 async def weather_index(request: Request, session: AsyncSession = Depends(get_session)):
     if "cities" in cache:
         cities_data = cache["cities"]
@@ -53,3 +53,31 @@ async def post_weather(
     return {
         "prediction": prediction,
     }
+
+
+@router.get("/admin")
+async def admin_weather(request: Request, session: AsyncSession = Depends(get_session)):
+    context = {}
+    cities = await get_cities_info_db(session)
+    users = await get_user_searches(session)
+
+    context.update({"cities": cities, "users": users})
+
+    return templates.TemplateResponse(
+        request=request, name="admin_weather.html", context=context
+    )
+
+
+@router.get("/admin/cities")
+async def admin_cities_info(session: AsyncSession = Depends(get_session)):
+    cities = await get_cities_info_db(session)
+    return [{"City name": c.city_name, "Searched times": c.searched} for c in cities]
+
+
+@router.get("/admin/users")
+async def admin_users_info(session: AsyncSession = Depends(get_session)):
+    users = await get_user_searches(session)
+    return [
+        {"Client": u.user_host, "Request": u.user_request, "Searched at": u.searched_at}
+        for u in users
+    ]
