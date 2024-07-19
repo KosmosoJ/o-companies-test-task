@@ -2,6 +2,7 @@ import openmeteo_requests
 import requests_cache
 from retry_requests import retry
 from datetime import datetime, timedelta
+from fastapi import HTTPException, status
 
 
 from geopy.geocoders import Nominatim
@@ -35,10 +36,13 @@ async def request_openmeteo(location: dict):
 
 async def get_prediction(city_name):
     location = geolocator.geocode(city_name)
-
-    info = await request_openmeteo(
+    try:
+        info = await request_openmeteo(
         {"latitude": location.latitude, "longitude": location.longitude}
-    )
+        )
+    except AttributeError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
+    
     hourly = info.Hourly()
 
     # Получение дат

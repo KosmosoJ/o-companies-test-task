@@ -3,6 +3,7 @@ const button = document.getElementById('submit')
 var xhr = new XMLHttpRequest();
 const searched_before = document.querySelectorAll('.searched-before-item')
 const city_title = document.querySelector('.city-title')
+const error_message = document.querySelector('.error-message')
 var currentDate = new Date()
 const baseURL = 'http://localhost:8000'
 
@@ -16,9 +17,11 @@ function get_prediction(city_name){
     xhr.open('POST', `${baseURL}/weather/${input.value}`,false)
         xhr.send();
         if (xhr.status == 200){
-        console.log('Удалось')
+        return  JSON.parse(xhr.responseText)
+    } else {
+        return null
     }
-    return  JSON.parse(xhr.responseText)
+    
 }
 
 function create_item(date,item_info){
@@ -32,19 +35,19 @@ function create_item(date,item_info){
                             <span>Ветер - ${parseInt(item_info['morning']['wind'])} км/ч</span>
                         </div>
                         <div class="time">
-                            <span class="day">День - ${parseInt(item_info['morning']['temp'])}°</span>
-                            <span>Вероятность осадков - ${parseInt(item_info['morning']['precip_chance'])}%</span>
-                            <span>Ветер - ${parseInt(item_info['morning']['wind'])} км/ч</span>
+                            <span class="day">День - ${parseInt(item_info['day']['temp'])}°</span>
+                            <span>Вероятность осадков - ${parseInt(item_info['day']['precip_chance'])}%</span>
+                            <span>Ветер - ${parseInt(item_info['day']['wind'])} км/ч</span>
                         </div>
                         <div class="time">
-                            <span class="evening">Вечер - ${parseInt(item_info['morning']['temp'])}°</span>
-                            <span>Вероятность осадков - ${parseInt(item_info['morning']['precip_chance'])}%</span>
-                            <span>Ветер - ${parseInt(item_info['morning']['wind'])} км/ч</span>
+                            <span class="evening">Вечер - ${parseInt(item_info['evening']['temp'])}°</span>
+                            <span>Вероятность осадков - ${parseInt(item_info['evening']['precip_chance'])}%</span>
+                            <span>Ветер - ${parseInt(item_info['evening']['wind'])} км/ч</span>
                         </div>
                         <div class="time">
-                            <span class="night">Ночь - ${parseInt(item_info['morning']['temp'])}°</span>
-                            <span>Вероятность осадков - ${parseInt(item_info['morning']['precip_chance'])}%</span>
-                            <span>Ветер - ${parseInt(item_info['morning']['wind'])} км/ч</span>
+                            <span class="night">Ночь - ${parseInt(item_info['night']['temp'])}°</span>
+                            <span>Вероятность осадков - ${parseInt(item_info['night']['precip_chance'])}%</span>
+                            <span>Ветер - ${parseInt(item_info['night']['wind'])} км/ч</span>
                         </div>
                     </div></div>`
 }
@@ -65,11 +68,26 @@ function insert_info(prediction){
 button.addEventListener('click', function() {
     console.log(input.value)
     if (input.value){
+        error_message.classList.add('deactive')
         var prediction = get_prediction(input.value)
-        insert_info(prediction)
-        city_title.innerHTML = input.value
+        if (prediction){
+            insert_info(prediction)
+            city_title.innerHTML = input.value
+        } else {
+            error_message.classList.remove('deactive')
+        }
+        
     } else {
         console.log('Пусто')
     }
     
+})
+
+
+searched_before.forEach(el =>{
+    el.addEventListener('click', (e) =>{
+        let self = e.currentTarget;
+        input.value = self.innerHTML
+        
+    })
 })

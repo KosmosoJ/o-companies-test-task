@@ -5,8 +5,12 @@
     <div class="container">
         <div class="form-container">
             Укажите город
+                {% if user_search %}
+                <input type="text" id="user_form" list="city-list" value="{{ user_search[0].user_request }}" autocomplete="on" name="city_name">    
+                {% else %}
+                <input type="text" id="user_form" list="city-list"  autocomplete="on" name="city_name">
+                {% endif %}
                 
-                <input type="text" id="user_form" list="city-list" value="Екатеринбург" autocomplete="on" name="city_name">
                 <datalist id="city-list">
                     {% for city in cities %}
                     <option value="{{ city }}">
@@ -15,13 +19,20 @@
                 <button id="submit" >Поиск</button>
         </div>  
         <div class="searched-before">
+            {% if user_search %}
             <div class="searched-before-title">Искали ранее: </div>
             <div class="search-info">
-            <span class='searched-before-item'></span>
-            <span class='searched-before-item'></span>
+                {% for search in user_search %}
+                    
+                <span class='searched-before-item'>{{ search.user_request }}</span>
+                {% endfor %}
             
-            </div>
+            </div>    
+            {% endif %}
+            
+        
         </div>
+        <div class="error-message deactive">Неверно указан город</div>
         <div class="prediction-container deactive">
             <div class="prediction-title">Прогноз погоды для города <span class="city-title"></span></div>
             <div class="items-container">

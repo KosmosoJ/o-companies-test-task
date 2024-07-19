@@ -6,6 +6,9 @@ from cachetools import TTLCache
 from utils.weather import get_prediction
 from database.db import get_session
 from sqlalchemy.ext.asyncio import AsyncSession
+from utils.city import user_get_city_info
+from utils.search import post_user_search, get_unique_user_search
+from schemas.search import UserSearch
 
 
 templates = Jinja2Templates(directory="templates")
@@ -29,15 +32,24 @@ async def weather_index(request: Request, session: AsyncSession = Depends(get_se
         cities_data = cache["cities"]
     else:
         cities_data = await get_cities_info()
+    user_searches = await get_unique_user_search(request.client.host, session)
+    print(user_searches)
     return templates.TemplateResponse(
-        request=request, name="weather.html", context={"cities": cities_data}
+        request=request,
+        name="weather.html",
+        context={"cities": cities_data, "user_search": user_searches},
     )
 
 
 @router.post("/weather/{city_name}")
-async def post_weather(city_name: str, session: AsyncSession = Depends(get_session)):
+async def post_weather(
+    city_name: str, request: Request, session: AsyncSession = Depends(get_session)
+):
     prediction = await get_prediction(city_name)
-
+    if prediction:
+        await user_get_city_info(city_name, session)
+        user = UserSearch(user_host=request.client.host, user_request=city_name)
+        await post_user_search(user, session)
     return {
         "prediction": prediction,
     }
