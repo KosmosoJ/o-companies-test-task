@@ -14,6 +14,7 @@ openmeteo = openmeteo_requests.Client(session=retry_session)
 
 
 async def request_openmeteo(location: dict):
+    """ Запрос к open-meteo """
     url = "https://api.open-meteo.com/v1/forecast"
     params = {
         "latitude": location["latitude"],
@@ -35,6 +36,7 @@ async def request_openmeteo(location: dict):
 
 
 async def get_prediction(city_name):
+    """ Получение прогноза по указанному городу  """
     location = geolocator.geocode(city_name)
     try:
         info = await request_openmeteo(

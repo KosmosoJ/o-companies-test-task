@@ -6,6 +6,7 @@ from schemas import search as search_schemas
 
 
 async def get_user_searches(session: AsyncSession):
+    """ Получение всех поисков пользователей """
     search_info = await session.execute(select(UserSearch))
     search_info = search_info.scalars().all()
 
@@ -15,6 +16,8 @@ async def get_user_searches(session: AsyncSession):
 
 
 async def get_unique_user_search(user_host: str, session: AsyncSession):
+    """ Получение последних данных, введенных конкретным пользователем.
+      Используется для вывода в "Искали ранее" """
     search_info = await session.execute(
         select(UserSearch)
         .where(UserSearch.user_host == user_host)
@@ -28,6 +31,7 @@ async def get_unique_user_search(user_host: str, session: AsyncSession):
 
 
 async def get_user_search(user_host: str, session: AsyncSession):
+    """ Получение пользователя по айпи (не используется) """
     user_search_info = await session.execute(
         select(UserSearch).where(UserSearch.user_host == user_host)
     )
@@ -40,6 +44,7 @@ async def get_user_search(user_host: str, session: AsyncSession):
 
 
 async def post_user_search(user_info: search_schemas.UserSearch, session: AsyncSession):
+    """ Сохранение в бд информации о поиске клиента """
     new_search = UserSearch(
         user_host=user_info.user_host, user_request=user_info.user_request
     )

@@ -5,17 +5,21 @@
     <div class="admin-container container">
         <div class="">
             Пользователи
+            {% if users %}
             {% for user in users %}
             <div class="info-item">{{ user.user_host }} - {{ user.user_request }} - {{ user.searched_at }} </div>
                 
             {% endfor %}
+            {% endif %}
         </div>
         <div class="">
             Города
+            {% if cities%}
             {% for city in cities %}
             <div class="info-item">{{ city.city_name }} - {{ city.searched }} </div>
                 
             {% endfor %}
+            {% endif %}
         </div>
     </div>
 

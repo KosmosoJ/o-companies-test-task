@@ -25,7 +25,7 @@ function get_prediction(city_name){
 }
 
 function create_item(date,item_info){
-    console.log(item_info)
+    try {
     return `<div class="item">
                     <div class="item-title-date">${date} </div>
                     <div class="time-container">
@@ -49,7 +49,27 @@ function create_item(date,item_info){
                             <span>Вероятность осадков - ${parseInt(item_info['night']['precip_chance'])}%</span>
                             <span>Ветер - ${parseInt(item_info['night']['wind'])} км/ч</span>
                         </div>
+                    </div></div>`} catch {
+                        return `<div class="item">
+                    <div class="item-title-date">${date} </div>
+                    <div class="time-container">
+                        <div class="time">
+                            <span class="morning">Утро - ${parseInt(item_info['morning']['temp'])}°</span>
+                            <span>Вероятность осадков - ${parseInt(item_info['morning']['precip_chance'])}%</span>
+                            <span>Ветер - ${parseInt(item_info['morning']['wind'])} км/ч</span>
+                        </div>
+                        <div class="time">
+                            <span class="day">День - ${parseInt(item_info['day']['temp'])}°</span>
+                            <span>Вероятность осадков - ${parseInt(item_info['day']['precip_chance'])}%</span>
+                            <span>Ветер - ${parseInt(item_info['day']['wind'])} км/ч</span>
+                        </div>
+                        <div class="time">
+                            <span class="evening">Вечер - ${parseInt(item_info['evening']['temp'])}°</span>
+                            <span>Вероятность осадков - ${parseInt(item_info['evening']['precip_chance'])}%</span>
+                            <span>Ветер - ${parseInt(item_info['evening']['wind'])} км/ч</span>
+                        </div>
                     </div></div>`
+                    }
 }
 
 function insert_info(prediction){

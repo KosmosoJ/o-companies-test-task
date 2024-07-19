@@ -5,6 +5,7 @@ from fastapi import HTTPException, status
 
 
 async def get_cities_info_db(session: AsyncSession):
+    """ Получение всех городов из БД """
     cities = await session.execute(select(City))
     cities = cities.scalars().all()
     if not cities:
@@ -13,6 +14,7 @@ async def get_cities_info_db(session: AsyncSession):
 
 
 async def get_city_info(city: str, session: AsyncSession):
+    """ Получение информации по названию города (не используется) """
     city_info = await session.execute(
         select(City).where(City.city_name == city.lower())
     )
@@ -24,6 +26,7 @@ async def get_city_info(city: str, session: AsyncSession):
 
 
 async def user_get_city_info(city: str, session: AsyncSession):
+    """ Обновление количества поиска города. Если записи в бд нет - создаст новую """
     city_info = await session.execute(
         select(City).where(City.city_name == city.lower())
     )
